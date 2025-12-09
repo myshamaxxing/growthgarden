@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Garden - Simple Layered View</title>
+    
+    <!-- Embedded Sentiment Library (1000+ words) -->
+    <script>
+    // Comprehensive Sentiment Analysis Library
+    var Sentiment = function() {
+        this.afinn = {
+            // POSITIVE WORDS (+1) - ~500 words
+            'happy': 1, 'joy': 1, 'love': 1, 'excited': 1, 'wonderful': 1, 'great': 1, 'amazing': 1, 'fantastic': 1, 'excellent': 1, 'perfect': 1, 'beautiful': 1, 'awesome': 1, 'brilliant': 1, 'good': 1, 'better': 1, 'best': 1, 'nice': 1, 'lovely': 1, 'delighted': 1, 'pleased': 1, 'glad': 1, 'grateful': 1, 'thankful': 1, 'blessed': 1, 'cheerful': 1, 'joyful': 1, 'hopeful': 1, 'optimistic': 1, 'confident': 1, 'proud': 1, 'content': 1, 'peaceful': 1, 'calm': 1, 'relaxed': 1, 'comfortable': 1, 'safe': 1, 'secure': 1, 'relieved': 1, 'satisfied': 1, 'accomplished': 1, 'successful': 1, 'winning': 1, 'winner': 1, 'triumph': 1, 'victory': 1, 'achieve': 1, 'achievement': 1, 'succeed': 1, 'success': 1, 'progress': 1, 'improve': 1, 'improved': 1, 'improvement': 1, 'advance': 1, 'advanced': 1, 'forward': 1, 'growth': 1, 'growing': 1, 'thrive': 1, 'thriving': 1, 'flourish': 1, 'flourishing': 1, 'bloom': 1, 'blooming': 1, 'blossom': 1, 'energetic': 1, 'energy': 1, 'alive': 1, 'vibrant': 1, 'lively': 1, 'enthusiastic': 1, 'enthusiasm': 1, 'passionate': 1, 'passion': 1, 'inspired': 1, 'inspiration': 1, 'inspiring': 1, 'motivated': 1, 'motivation': 1, 'determined': 1, 'strong': 1, 'strength': 1, 'powerful': 1, 'capable': 1, 'able': 1, 'skilled': 1, 'talented': 1, 'gifted': 1, 'bright': 1, 'smart': 1, 'clever': 1, 'intelligent': 1, 'wise': 1, 'wisdom': 1, 'clear': 1, 'clarity': 1, 'focused': 1, 'sharp': 1, 'alert': 1, 'awake': 1, 'refreshed': 1, 'renewed': 1, 'restored': 1, 'revived': 1, 'healed': 1, 'healthy': 1, 'well': 1, 'fit': 1, 'robust': 1, 'warm': 1, 'cozy': 1, 'friendly': 1, 'kind': 1, 'gentle': 1, 'caring': 1, 'compassionate': 1, 'empathetic': 1, 'understanding': 1, 'supportive': 1, 'helpful': 1, 'generous': 1, 'giving': 1, 'charitable': 1, 'benevolent': 1, 'sweet': 1, 'tender': 1, 'affectionate': 1, 'loving': 1, 'adoring': 1, 'cherish': 1, 'treasure': 1, 'value': 1, 'appreciate': 1, 'admire': 1, 'respect': 1, 'honor': 1, 'dignity': 1, 'worthy': 1, 'deserving': 1, 'special': 1, 'unique': 1, 'extraordinary': 1, 'remarkable': 1, 'impressive': 1, 'outstanding': 1, 'exceptional': 1, 'superior': 1, 'premium': 1, 'quality': 1, 'genuine': 1, 'authentic': 1, 'real': 1, 'true': 1, 'honest': 1, 'sincere': 1, 'trustworthy': 1, 'reliable': 1, 'dependable': 1, 'loyal': 1, 'faithful': 1, 'devoted': 1, 'dedicated': 1, 'committed': 1, 'persistent': 1, 'patient': 1, 'tolerant': 1, 'accepting': 1, 'open': 1, 'receptive': 1, 'flexible': 1, 'adaptable': 1, 'versatile': 1, 'dynamic': 1, 'active': 1, 'productive': 1, 'efficient': 1, 'effective': 1, 'useful': 1, 'beneficial': 1, 'advantageous': 1, 'favorable': 1, 'positive': 1, 'constructive': 1, 'valuable': 1, 'precious': 1, 'priceless': 1, 'worthwhile': 1, 'meaningful': 1, 'significant': 1, 'important': 1, 'essential': 1, 'vital': 1, 'crucial': 1, 'fun': 1, 'enjoyable': 1, 'entertaining': 1, 'amusing': 1, 'pleasant': 1, 'agreeable': 1, 'fine': 1, 'adequate': 1, 'suitable': 1, 'appropriate': 1, 'fitting': 1, 'proper': 1, 'right': 1, 'correct': 1, 'accurate': 1, 'precise': 1, 'exact': 1, 'flawless': 1, 'immaculate': 1, 'pristine': 1, 'pure': 1, 'clean': 1, 'fresh': 1, 'new': 1, 'novel': 1, 'original': 1, 'creative': 1, 'innovative': 1, 'inventive': 1, 'imaginative': 1, 'artistic': 1, 'elegant': 1, 'graceful': 1, 'stylish': 1, 'chic': 1, 'sophisticated': 1, 'refined': 1, 'polished': 1, 'smooth': 1, 'sleek': 1, 'modern': 1, 'contemporary': 1, 'progressive': 1, 'future': 1, 'promising': 1, 'potential': 1, 'possible': 1, 'feasible': 1, 'achievable': 1, 'attainable': 1, 'accessible': 1, 'available': 1, 'ready': 1, 'prepared': 1, 'equipped': 1, 'complete': 1, 'whole': 1, 'total': 1, 'full': 1, 'abundant': 1, 'plentiful': 1, 'ample': 1, 'sufficient': 1, 'enough': 1, 'plenty': 1, 'rich': 1, 'wealthy': 1, 'prosperous': 1, 'affluent': 1, 'fortunate': 1, 'lucky': 1, 'favored': 1, 'privileged': 1, 'honored': 1, 'respected': 1, 'admired': 1, 'appreciated': 1, 'valued': 1, 'loved': 1, 'adored': 1, 'cherished': 1, 'treasured': 1, 'beloved': 1, 'dear': 1, 'noteworthy': 1, 'memorable': 1, 'unforgettable': 1, 'lasting': 1, 'enduring': 1, 'permanent': 1, 'stable': 1, 'steady': 1, 'consistent': 1, 'constant': 1, 'continuous': 1, 'ongoing': 1, 'sustained': 1, 'maintained': 1, 'protected': 1, 'defended': 1, 'supported': 1, 'backed': 1, 'encouraged': 1, 'uplifted': 1, 'elevated': 1, 'raised': 1, 'boosted': 1, 'enhanced': 1, 'upgraded': 1, 'perfected': 1, 'optimized': 1, 'maximized': 1, 'amplified': 1, 'strengthened': 1, 'fortified': 1, 'empowered': 1, 'enabled': 1, 'facilitated': 1, 'assisted': 1, 'aided': 1, 'helped': 1, 'served': 1, 'contributed': 1, 'participated': 1, 'engaged': 1, 'involved': 1, 'connected': 1, 'linked': 1, 'united': 1, 'together': 1, 'unified': 1, 'integrated': 1, 'combined': 1, 'merged': 1, 'joined': 1, 'cooperative': 1, 'collaborative': 1, 'teamwork': 1, 'partnership': 1, 'alliance': 1, 'harmony': 1, 'balance': 1, 'symmetry': 1, 'proportion': 1, 'order': 1, 'organized': 1, 'arranged': 1, 'structured': 1, 'systematic': 1, 'methodical': 1, 'logical': 1, 'rational': 1, 'reasonable': 1, 'sensible': 1, 'practical': 1, 'pragmatic': 1, 'realistic': 1, 'grounded': 1, 'solid': 1, 'sound': 1, 'valid': 1, 'legitimate': 1, 'justified': 1, 'warranted': 1, 'deserved': 1, 'earned': 1, 'merited': 1, 'ideal': 1, 'optimal': 1, 'prime': 1, 'peak': 1, 'top': 1, 'supreme': 1, 'ultimate': 1, 'maximum': 1, 'highest': 1, 'greatest': 1, 'finest': 1, 'premier': 1, 'leading': 1, 'foremost': 1, 'principal': 1,
+            
+            // NEGATIVE WORDS (-1) - ~500 words
+            'sad': -1, 'angry': -1, 'hate': -1, 'upset': -1, 'terrible': -1, 'awful': -1, 'horrible': -1, 'bad': -1, 'worse': -1, 'worst': -1, 'depressed': -1, 'stressed': -1, 'anxious': -1, 'worried': -1, 'scared': -1, 'afraid': -1, 'fearful': -1, 'terrified': -1, 'frightened': -1, 'panicked': -1, 'nervous': -1, 'tense': -1, 'uneasy': -1, 'uncomfortable': -1, 'awkward': -1, 'embarrassed': -1, 'ashamed': -1, 'guilty': -1, 'regret': -1, 'sorry': -1, 'disappointed': -1, 'frustrated': -1, 'annoyed': -1, 'irritated': -1, 'bothered': -1, 'disturbed': -1, 'troubled': -1, 'distressed': -1, 'overwhelmed': -1, 'exhausted': -1, 'tired': -1, 'weary': -1, 'drained': -1, 'depleted': -1, 'empty': -1, 'lonely': -1, 'alone': -1, 'isolated': -1, 'abandoned': -1, 'rejected': -1, 'unwanted': -1, 'unloved': -1, 'hurt': -1, 'pain': -1, 'painful': -1, 'aching': -1, 'sore': -1, 'suffering': -1, 'agony': -1, 'torture': -1, 'miserable': -1, 'unhappy': -1, 'gloomy': -1, 'dark': -1, 'bleak': -1, 'dismal': -1, 'dreary': -1, 'dull': -1, 'boring': -1, 'monotonous': -1, 'tedious': -1, 'tiresome': -1, 'wearisome': -1, 'uninteresting': -1, 'lifeless': -1, 'dead': -1, 'dying': -1, 'decay': -1, 'rotten': -1, 'spoiled': -1, 'corrupt': -1, 'contaminated': -1, 'polluted': -1, 'dirty': -1, 'filthy': -1, 'nasty': -1, 'disgusting': -1, 'revolting': -1, 'repulsive': -1, 'gross': -1, 'sick': -1, 'ill': -1, 'unwell': -1, 'diseased': -1, 'infected': -1, 'weak': -1, 'feeble': -1, 'frail': -1, 'fragile': -1, 'delicate': -1, 'vulnerable': -1, 'helpless': -1, 'powerless': -1, 'defenseless': -1, 'exposed': -1, 'dangerous': -1, 'risky': -1, 'hazardous': -1, 'unsafe': -1, 'threatening': -1, 'menacing': -1, 'ominous': -1, 'sinister': -1, 'evil': -1, 'wicked': -1, 'cruel': -1, 'mean': -1, 'harsh': -1, 'rough': -1, 'brutal': -1, 'violent': -1, 'aggressive': -1, 'hostile': -1, 'antagonistic': -1, 'unfriendly': -1, 'cold': -1, 'icy': -1, 'frozen': -1, 'chilly': -1, 'frigid': -1, 'bitter': -1, 'sour': -1, 'unpleasant': -1, 'disagreeable': -1, 'offensive': -1, 'insulting': -1, 'rude': -1, 'impolite': -1, 'disrespectful': -1, 'insolent': -1, 'arrogant': -1, 'conceited': -1, 'vain': -1, 'selfish': -1, 'greedy': -1, 'envious': -1, 'jealous': -1, 'resentful': -1, 'vindictive': -1, 'spiteful': -1, 'malicious': -1, 'hateful': -1, 'vengeful': -1, 'negative': -1, 'pessimistic': -1, 'hopeless': -1, 'desperate': -1, 'despairing': -1, 'defeated': -1, 'beaten': -1, 'crushed': -1, 'broken': -1, 'damaged': -1, 'ruined': -1, 'destroyed': -1, 'devastated': -1, 'shattered': -1, 'wrecked': -1, 'failed': -1, 'failure': -1, 'unsuccessful': -1, 'losing': -1, 'loser': -1, 'inadequate': -1, 'insufficient': -1, 'lacking': -1, 'deficient': -1, 'incomplete': -1, 'partial': -1, 'limited': -1, 'restricted': -1, 'constrained': -1, 'confined': -1, 'trapped': -1, 'stuck': -1, 'stagnant': -1, 'immobile': -1, 'paralyzed': -1, 'blocked': -1, 'obstructed': -1, 'hindered': -1, 'impeded': -1, 'prevented': -1, 'stopped': -1, 'halted': -1, 'ceased': -1, 'ended': -1, 'finished': -1, 'over': -1, 'done': -1, 'gone': -1, 'lost': -1, 'missing': -1, 'absent': -1, 'wanting': -1, 'needing': -1, 'poor': -1, 'poverty': -1, 'deprived': -1, 'disadvantaged': -1, 'unfortunate': -1, 'unlucky': -1, 'cursed': -1, 'doomed': -1, 'fated': -1, 'destined': -1, 'condemned': -1, 'damned': -1, 'forsaken': -1, 'deserted': -1, 'neglected': -1, 'ignored': -1, 'overlooked': -1, 'dismissed': -1, 'refused': -1, 'denied': -1, 'declined': -1, 'turned': -1, 'rebuffed': -1, 'spurned': -1, 'snubbed': -1, 'shunned': -1, 'avoided': -1, 'evaded': -1, 'escaped': -1, 'fled': -1, 'ran': -1, 'retreated': -1, 'withdrawn': -1, 'separated': -1, 'divided': -1, 'split': -1, 'fractured': -1, 'cracked': -1, 'torn': -1, 'ripped': -1, 'shredded': -1, 'cut': -1, 'slashed': -1, 'wounded': -1, 'injured': -1, 'harmed': -1, 'impaired': -1, 'diminished': -1, 'reduced': -1, 'decreased': -1, 'lowered': -1, 'dropped': -1, 'fallen': -1, 'declined': -1, 'deteriorated': -1, 'worsened': -1, 'degraded': -1, 'corrupted': -1, 'tainted': -1, 'marred': -1, 'blemished': -1, 'flawed': -1, 'defective': -1, 'faulty': -1, 'imperfect': -1, 'inferior': -1, 'substandard': -1, 'mediocre': -1, 'low': -1, 'bottom': -1, 'least': -1, 'minimum': -1, 'smallest': -1, 'dreadful': -1, 'atrocious': -1, 'abysmal': -1, 'appalling': -1, 'shocking': -1, 'horrifying': -1, 'terrifying': -1, 'alarming': -1, 'upsetting': -1, 'concerning': -1, 'worrying': -1, 'scary': -1, 'creepy': -1, 'eerie': -1, 'strange': -1, 'odd': -1, 'weird': -1, 'bizarre': -1, 'abnormal': -1, 'unusual': -1, 'irregular': -1, 'atypical': -1, 'uncommon': -1, 'rare': -1, 'scarce': -1, 'sparse': -1, 'thin': -1, 'meager': -1, 'scant': -1, 'little': -1, 'few': -1, 'less': -1, 'short': -1, 'brief': -1, 'temporary': -1, 'fleeting': -1, 'passing': -1, 'transient': -1, 'unstable': -1, 'unsteady': -1, 'shaky': -1, 'wobbly': -1, 'uncertain': -1, 'doubtful': -1, 'questionable': -1, 'dubious': -1, 'suspicious': -1, 'skeptical': -1, 'distrustful': -1, 'wary': -1, 'cautious': -1, 'hesitant': -1, 'reluctant': -1, 'unwilling': -1, 'resistant': -1, 'opposed': -1, 'against': -1, 'contrary': -1, 'opposite': -1, 'reverse': -1, 'backward': -1, 'regressive': -1, 'fading': -1, 'wilting': -1, 'withering': -1, 'shrinking': -1, 'contracting': -1, 'narrowing': -1, 'closing': -1, 'shutting': -1, 'ending': -1, 'meh': -1, 'blah': -1, 'whatever': -1, 'indifferent': -1, 'apathetic': -1, 'numb': -1, 'hollow': -1, 'void': -1, 'meaningless': -1
+        };
+    };
+    
+    Sentiment.prototype.analyze = function(phrase) {
+        var words = phrase.toLowerCase().match(/\b\w+\b/g) || [];
+        var score = 0;
+        var positive = [];
+        var negative = [];
+        
+        for (var i = 0; i < words.length; i++) {
+            var word = words[i];
+            var item = this.afinn[word];
+            
+            if (item) {
+                if (item > 0) positive.push(word);
+                if (item < 0) negative.push(word);
+                score += item;
+            }
+        }
+        
+        return {
+            score: score,
+            comparative: words.length > 0 ? score / words.length : 0,
+            tokens: words,
+            words: words.filter(function(word) { return this.afinn[word]; }.bind(this)),
+            positive: positive,
+            negative: negative
+        };
+    };
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #d4e8f7; /* Pastel light blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Wrapper to hold scene */
+        #main-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main container - holds all layers */
+        #scene-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* All layers stack on top of each other */
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Keeps original positioning */
+        }
+        
+        /* Flowers are hidden by default */
+        .flower {
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: bottom center; /* Grow from bottom */
+        }
+        
+        /* Rabbit sprite animation system */
+        .rabbit-sprite {
+            opacity: 0;
+            display: none; /* Completely hide inactive sprites */
+            transition: opacity 0.05s ease-in-out;
+        }
+        
+        /* Only show rabbit-1 (resting) by default */
+        #rabbit-1 {
+            opacity: 1;
+            display: block;
+        }
+        
+        /* Show active rabbit sprite */
+        .rabbit-sprite.active {
+            opacity: 1;
+            display: block;
+        }
+        
+        /* Sky sprite animation system */
+        .sky-sprite {
+            opacity: 0;
+            display: none;
+            transition: opacity 0.1s ease-in-out;
+        }
+        
+        /* Only show sky-1 by default */
+        #sky-1 {
+            opacity: 1;
+            display: block;
+        }
+        
+        /* Show active sky sprite */
+        .sky-sprite.active {
+            opacity: 1;
+            display: block;
+        }
+        
+        /* Growing animation keyframes - wavy organic growth */
+        @keyframes plantGrow {
+            0% {
+                opacity: 0;
+                transform: scaleY(0) scaleX(0.8);
+            }
+            20% {
+                opacity: 0.3;
+                transform: scaleY(0.2) scaleX(0.85) rotate(-2deg);
+            }
+            40% {
+                opacity: 0.6;
+                transform: scaleY(0.5) scaleX(0.95) rotate(1deg);
+            }
+            60% {
+                opacity: 0.8;
+                transform: scaleY(0.75) scaleX(1.05) rotate(-1deg);
+            }
+            80% {
+                opacity: 0.95;
+                transform: scaleY(0.95) scaleX(1.02) rotate(0.5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleY(1) scaleX(1) rotate(0deg);
+            }
+        }
+        
+        /* Gentle swaying motion - SUBTLE like grass in breeze */
+        @keyframes sway {
+            0%, 100% {
+                transform: rotate(-0.5deg);
+            }
+            25% {
+                transform: rotate(0.7deg);
+            }
+            50% {
+                transform: rotate(-0.3deg);
+            }
+            75% {
+                transform: rotate(0.5deg);
+            }
+        }
+        
+        /* Shrinking animation - reverse wavy motion */
+        @keyframes plantShrink {
+            0% {
+                opacity: 1;
+                transform: scaleY(1) scaleX(1) rotate(0deg);
+            }
+            30% {
+                opacity: 0.7;
+                transform: scaleY(0.7) scaleX(1.05) rotate(-1deg);
+            }
+            60% {
+                opacity: 0.4;
+                transform: scaleY(0.3) scaleX(0.9) rotate(1deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scaleY(0) scaleX(0.8) rotate(0deg);
+            }
+        }
+        
+        /* Apply grow animation when flower becomes visible */
+        .flower.visible {
+            animation: plantGrow 1.2s cubic-bezier(0.4, 0.0, 0.2, 1); /* Smooth, organic easing */
+            opacity: 1;
+            transform: scaleY(1) scaleX(1) rotate(0deg);
+        }
+        
+        /* Pre-existing flowers (no animation, just visible) */
+        .flower.visible-instant {
+            opacity: 1;
+            transform: scaleY(1) scaleX(1) rotate(0deg);
+        }
+        
+        /* Individual sway animation for each flower - ALL UNIQUE */
+        #flower-1.swaying { animation: sway 3.5s ease-in-out infinite; animation-delay: 0s; }
+        #flower-2.swaying { animation: sway 4.2s ease-in-out infinite; animation-delay: 0.3s; }
+        #flower-3.swaying { animation: sway 3.8s ease-in-out infinite; animation-delay: 0.7s; }
+        #flower-4.swaying { animation: sway 4.5s ease-in-out infinite; animation-delay: 0.2s; }
+        #flower-5.swaying { animation: sway 3.3s ease-in-out infinite; animation-delay: 0.9s; }
+        #flower-6.swaying { animation: sway 4.0s ease-in-out infinite; animation-delay: 0.5s; }
+        /* FLOWER-7 REMOVED */
+        #flower-8.swaying { animation: sway 4.3s ease-in-out infinite; animation-delay: 0.8s; }
+        #flower-9.swaying { animation: sway 3.9s ease-in-out infinite; animation-delay: 0.1s; }
+        #flower-10.swaying { animation: sway 4.1s ease-in-out infinite; animation-delay: 0.6s; }
+        #flower-11.swaying { animation: sway 3.7s ease-in-out infinite; animation-delay: 0.35s; }
+        #flower-12.swaying { animation: sway 4.4s ease-in-out infinite; animation-delay: 0.75s; }
+        #flower-13.swaying { animation: sway 3.4s ease-in-out infinite; animation-delay: 0.15s; }
+        #flower-14.swaying { animation: sway 4.6s ease-in-out infinite; animation-delay: 0.55s; }
+        #flower-15.swaying { animation: sway 3.2s ease-in-out infinite; animation-delay: 0.95s; }
+        
+        /* Apply shrink animation when flower is being removed */
+        .flower.removing {
+            animation: plantShrink 0.8s ease-in-out forwards;
+        }
+        
+        /* Dialog Pane - Using Figma image */
+        #dialog-pane {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px; /* Half of 600px */
+            z-index: 1000;
+        }
+        
+        /* Background image from Figma */
+        #dialog-image {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Input field positioned over the Figma design */
+        #mood-input {
+            position: absolute;
+            top: 65%; /* Position inside the rounded box */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; /* Fits inside the rounded box */
+            padding: 8px 12px;
+            font-family: Arial, sans-serif;
+            font-size: 14px; /* Smaller font for smaller dialog */
+            background: transparent; /* Transparent so Figma design shows through */
+            border: none;
+            outline: none;
+            color: #333;
+            text-align: center;
+        }
+        
+        /* Always show cursor blink (input is always active) */
+        #mood-input {
+            caret-color: #333; /* Make cursor visible */
+        }
+        
+        /* Subtle animation to show input is active */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        #mood-input::placeholder {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Help Button - Top Right Corner of Scene */
+        #help-button {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            z-index: 2000;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        #help-button:hover {
+            transform: scale(1.1);
+        }
+        
+        #help-icon {
+            width: 50px;
+            height: 50px;
+            display: block;
+        }
+        
+        /* Info Popup - Centered */
+        #info-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3000;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #info-popup.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        #info-popup.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        #info-image {
+            max-width: 80%;
+            max-height: 80vh;
+            display: block;
+            margin: auto;
+        }
+        
+        /* Fade in/out animation for initial display */
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        #info-popup.auto-show {
+            animation: fadeInOut 5s ease-in-out forwards;
+        }
+        
+        #mood-input::placeholder {
+            color: rgba(0, 0, 0, 0.35);
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1300px) {
+            #scene-container {
+                width: 90vw;
+                height: calc(90vw * 0.5625);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main-wrapper">
+        <!-- Scene Container -->
+        <div id="scene-container">
+        <!-- LAYER 1: Animated Sky (3 sprites cycling every 500ms) -->
+        <img src="sky/sky1.png" alt="Sky 1" class="layer sky-sprite" id="sky-1">
+        <img src="sky/sky2.png" alt="Sky 2" class="layer sky-sprite" id="sky-2">
+        <img src="sky/sky3.png" alt="Sky 3" class="layer sky-sprite" id="sky-3">
+        
+        <!-- LAYER 2: Land -->
+        <img src="land.PNG" alt="Land" class="layer" id="layer-land">
+        
+        <!-- LAYER 3: Rabbit Character (4 sprite states) -->
+        <img src="rabbit/rabbit1.png" alt="Rabbit Resting" class="layer rabbit-sprite" id="rabbit-1">
+        <img src="rabbit/rabbit2.png" alt="Rabbit Typing 1" class="layer rabbit-sprite" id="rabbit-2">
+        <img src="rabbit/rabbit3.png" alt="Rabbit Typing 2" class="layer rabbit-sprite" id="rabbit-3">
+        <img src="rabbit/rabbit4.png" alt="Rabbit Typing 3" class="layer rabbit-sprite" id="rabbit-4">
+        
+        <!-- LAYER 4: Flowers (in order from first to last) -->
+        <img src="flower/flower1.png" alt="Flower 1" class="layer flower" id="flower-1">
+        <img src="flower/flower2.png" alt="Flower 2" class="layer flower" id="flower-2">
+        <img src="flower/flower3.png" alt="Flower 3" class="layer flower" id="flower-3">
+        <img src="flower/flower4.png" alt="Flower 4" class="layer flower" id="flower-4">
+        <img src="flower/flower5.png" alt="Flower 5" class="layer flower" id="flower-5">
+        <img src="flower/flower6.png" alt="Flower 6" class="layer flower" id="flower-6">
+        <!-- FLOWER 7 REMOVED -->
+        <img src="flower/flower8.png" alt="Flower 8" class="layer flower" id="flower-8">
+        <img src="flower/flower9.png" alt="Flower 9" class="layer flower" id="flower-9">
+        <img src="flower/flower10.png" alt="Flower 10" class="layer flower" id="flower-10">
+        <img src="flower/flower11.png" alt="Flower 11" class="layer flower" id="flower-11">
+        <img src="flower/flower12.png" alt="Flower 12" class="layer flower" id="flower-12">
+        <img src="flower/flower13.png" alt="Flower 13" class="layer flower" id="flower-13">
+        <img src="flower/flower14.png" alt="Flower 14" class="layer flower" id="flower-14">
+        <img src="flower/flower15.png" alt="Flower 15" class="layer flower" id="flower-15">
+        
+        <!-- Dialog Pane - Overlaid on top center of scene -->
+        <div id="dialog-pane">
+            <!-- Figma design as background -->
+            <img src="dialog.png" alt="Dialog Box" id="dialog-image">
+            
+            <!-- Text input overlaid on the design -->
+            <input type="text" id="mood-input" placeholder="one word response">
+        </div>
+        
+        <!-- Help Button - Top Right Corner -->
+        <div id="help-button">
+            <img src="helpB.png" alt="Help" id="help-icon">
+        </div>
+        
+        <!-- Info Popup - Shows on hover/click -->
+        <div id="info-popup" class="hidden">
+            <img src="info.png" alt="Welcome Info" id="info-image">
+        </div>
+    </div>
+    
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+        // ========================================
+        // RABBIT SPRITE ANIMATION SYSTEM
+        // ========================================
+        
+        let currentRabbitSprite = 1; // Start at rabbit-1 (resting)
+        let rabbitAnimationInterval = null;
+        let isTyping = false;
+        
+        /**
+         * Show specific rabbit sprite (1-4)
+         */
+        function showRabbitSprite(spriteNumber) {
+            // Hide all rabbits completely
+            for (let i = 1; i <= 4; i++) {
+                const sprite = document.getElementById(`rabbit-${i}`);
+                sprite.classList.remove('active');
+                sprite.style.display = 'none';
+                sprite.style.opacity = '0';
+            }
+            
+            // Show the requested sprite
+            const activeSprite = document.getElementById(`rabbit-${spriteNumber}`);
+            activeSprite.style.display = 'block';
+            activeSprite.style.opacity = '1';
+            activeSprite.classList.add('active');
+            
+            currentRabbitSprite = spriteNumber;
+            
+            console.log(`🐰 Rabbit sprite: ${spriteNumber}`);
+        }
+        
+        /**
+         * Start rabbit typing animation (auto-progress 1->2->3->4)
+         */
+        function startRabbitTypingAnimation() {
+            // Don't restart if already animating
+            if (rabbitAnimationInterval) return;
+            
+            isTyping = true;
+            
+            // Progress through sprites every 300ms
+            rabbitAnimationInterval = setInterval(() => {
+                if (currentRabbitSprite < 4) {
+                    currentRabbitSprite++;
+                    showRabbitSprite(currentRabbitSprite);
+                } else {
+                    // Stop at sprite 4
+                    clearInterval(rabbitAnimationInterval);
+                    rabbitAnimationInterval = null;
+                }
+            }, 300);
+        }
+        
+        /**
+         * Stop typing animation
+         */
+        function stopRabbitTypingAnimation() {
+            if (rabbitAnimationInterval) {
+                clearInterval(rabbitAnimationInterval);
+                rabbitAnimationInterval = null;
+            }
+            isTyping = false;
+        }
+        
+        /**
+         * Animate rabbit back to resting (4->3->2->1)
+         */
+        function animateRabbitToResting() {
+            // Stop any typing animation first
+            stopRabbitTypingAnimation();
+            
+            // If already at resting, do nothing
+            if (currentRabbitSprite === 1) return;
+            
+            // Animate back through sprites to resting every 300ms
+            const interval = setInterval(() => {
+                if (currentRabbitSprite > 1) {
+                    currentRabbitSprite--;
+                    showRabbitSprite(currentRabbitSprite);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 300);
+        }
+        
+        // ========================================
+        // SKY SPRITE ANIMATION SYSTEM
+        // ========================================
+        
+        let currentSkySprite = 1;
+        let skyAnimationInterval = null;
+        
+        /**
+         * Start sky animation loop (cycles 1->2->3->1 every 500ms)
+         */
+        function startSkyAnimation() {
+            // Show first sky sprite
+            showSkySprite(1);
+            
+            // Cycle through sky sprites every 500ms
+            skyAnimationInterval = setInterval(() => {
+                currentSkySprite++;
+                if (currentSkySprite > 3) {
+                    currentSkySprite = 1; // Loop back to first sprite
+                }
+                showSkySprite(currentSkySprite);
+            }, 500);
+            
+            console.log('☁️ Sky animation started (500ms cycle)');
+        }
+        
+        /**
+         * Show specific sky sprite (1-3)
+         */
+        function showSkySprite(spriteNumber) {
+            // Hide all sky sprites
+            for (let i = 1; i <= 3; i++) {
+                const sprite = document.getElementById(`sky-${i}`);
+                sprite.classList.remove('active');
+                sprite.style.display = 'none';
+                sprite.style.opacity = '0';
+            }
+            
+            // Show the requested sprite
+            const activeSprite = document.getElementById(`sky-${spriteNumber}`);
+            activeSprite.style.display = 'block';
+            activeSprite.style.opacity = '1';
+            activeSprite.classList.add('active');
+        }
+        
+        // ========================================
+        // AUTO-FOCUS INPUT (For Projection/Keyboard-Only Use)
+        // ========================================
+        
+        const moodInput = document.getElementById('mood-input');
+        
+        // Auto-focus on page load
+        setTimeout(() => {
+            moodInput.focus();
+            console.log('🎹 Input auto-focused - ready for keyboard!');
+        }, 100);
+        
+        // Re-focus if user somehow loses focus
+        document.addEventListener('click', () => {
+            moodInput.focus();
+        });
+        
+        // Keep focus on input at all times
+        document.addEventListener('focusout', () => {
+            setTimeout(() => {
+                moodInput.focus();
+            }, 10);
+        });
+        
+        // Re-focus after processing input
+        function refocusInput() {
+            setTimeout(() => {
+                moodInput.focus();
+            }, 100);
+        }
+        
+        // ========================================
+        // SENTIMENT ANALYSIS (using local library)
+        // ========================================
+        
+        let sentiment = null;
+        
+        // Wait for Sentiment library to load
+        function initSentiment() {
+            if (typeof Sentiment !== 'undefined') {
+                sentiment = new Sentiment();
+                console.log('✅ Sentiment library loaded!');
+                return true;
+            } else {
+                console.error('❌ Sentiment library not loaded yet');
+                return false;
+            }
+        }
+        
+        // Try to initialize immediately
+        initSentiment();
+        
+        // ========================================
+        // FLOWER TRACKER
+        // ========================================
+        
+        // Track which flowers are currently visible
+        let visibleFlowers = [];
+        
+        // All 14 flowers in order (flower-7 removed)
+        const flowers = [
+            'flower-1', 'flower-2', 'flower-3', 'flower-4', 'flower-5',
+            'flower-6', 'flower-8', 'flower-9', 'flower-10',
+            'flower-11', 'flower-12', 'flower-13', 'flower-14', 'flower-15'
+        ];
+        
+        /**
+         * Initialize garden - flowers start VISIBLE but without animation
+         */
+        function initializeGarden() {
+            // Show first 6 flowers (indices 0-5, which are flower-1 through flower-6)
+            for (let i = 0; i < 6; i++) {
+                const flowerId = flowers[i];
+                visibleFlowers.push(flowerId);
+                
+                const flowerElement = document.getElementById(flowerId);
+                // Add 'visible' class but skip the grow animation by setting instant transform
+                flowerElement.classList.add('visible-instant'); // Special class for pre-existing flowers
+                flowerElement.classList.add('swaying'); // Start swaying immediately
+            }
+            
+            console.log(`🌸 Garden initialized with ${visibleFlowers.length} flowers (no animation)`);
+            console.log(`🌼 Visible flowers:`, visibleFlowers);
+        }
+        
+        /**
+         * Add a flower (show next hidden flower)
+         */
+        function addFlower() {
+            // Find first flower that's not visible
+            const hiddenFlowers = flowers.filter(id => !visibleFlowers.includes(id));
+            
+            console.log('🔍 Current visible flowers:', visibleFlowers);
+            console.log('🔍 Hidden flowers available:', hiddenFlowers);
+            
+            if (hiddenFlowers.length > 0) {
+                const flowerToAdd = hiddenFlowers[0];
+                visibleFlowers.push(flowerToAdd);
+                
+                // Show the flower
+                const flowerElement = document.getElementById(flowerToAdd);
+                
+                console.log(`🌸 Adding flower: ${flowerToAdd}`);
+                console.log(`🔍 Element opacity before:`, flowerElement.style.opacity);
+                console.log(`🔍 Element classes before:`, flowerElement.className);
+                
+                flowerElement.classList.add('visible');
+                
+                // After growth animation completes, start swaying
+                setTimeout(() => {
+                    flowerElement.classList.add('swaying');
+                }, 1200); // Match plantGrow animation duration
+                
+                console.log(`✅ Added flower: ${flowerToAdd}`);
+                console.log(`🔍 Element classes after:`, flowerElement.className);
+            } else {
+                console.log('✋ All flowers are already visible!');
+            }
+        }
+        
+        /**
+         * Remove a flower (hide last visible flower)
+         */
+        function removeFlower() {
+            if (visibleFlowers.length > 0) {
+                // Remove the last flower added
+                const flowerToRemove = visibleFlowers.pop();
+                
+                // Get the flower element
+                const flowerElement = document.getElementById(flowerToRemove);
+                
+                console.log(`🥀 Removing flower: ${flowerToRemove}`);
+                console.log(`🔍 Element classes before removal:`, flowerElement.className);
+                
+                // Stop swaying before shrinking
+                flowerElement.classList.remove('swaying');
+                
+                // Add removing class for shrink animation
+                flowerElement.classList.add('removing');
+                
+                // After animation completes, remove all visibility classes
+                setTimeout(() => {
+                    flowerElement.classList.remove('visible');
+                    flowerElement.classList.remove('visible-instant');
+                    flowerElement.classList.remove('removing');
+                }, 800); // Match animation duration (0.8s)
+                
+                console.log(`✅ Removed flower: ${flowerToRemove}`);
+            } else {
+                console.log('✋ No flowers to remove!');
+            }
+        }
+        
+        /**
+         * Process sentiment and update garden
+         */
+        function processSentiment(text) {
+            // Make sure sentiment library is loaded
+            if (!sentiment) {
+                if (!initSentiment()) {
+                    console.error('❌ Sentiment library failed to load');
+                    console.log('💡 Make sure sentiment.js is in the same folder as this HTML file');
+                    return;
+                }
+            }
+            
+            const result = sentiment.analyze(text);
+            const score = result.score;
+            
+            console.log(`📊 Sentiment Score: ${score}`);
+            console.log(`📝 Words detected:`, result.words);
+            console.log(`😊 Positive words:`, result.positive);
+            console.log(`😔 Negative words:`, result.negative);
+            
+            if (score > 0) {
+                // Positive sentiment - add flowers
+                console.log(`😊 Positive! Adding ${score} flower(s)`);
+                for (let i = 0; i < score; i++) {
+                    addFlower();
+                }
+            } else if (score < 0) {
+                // Negative sentiment - remove flowers
+                console.log(`😔 Negative! Removing ${Math.abs(score)} flower(s)`);
+                for (let i = 0; i < Math.abs(score); i++) {
+                    removeFlower();
+                }
+            } else {
+                // Neutral
+                console.log(`😐 Neutral - no change`);
+            }
+            
+            console.log(`🌼 Currently visible: ${visibleFlowers.length} flowers`);
+        }
+        
+        /**
+         * Process user input
+         */
+        function processInput() {
+            const input = document.getElementById('mood-input');
+            const text = input.value.trim();
+            
+            if (!text) {
+                return; // Empty input, do nothing
+            }
+            
+            // For testing: still allow manual add/remove
+            if (text.toLowerCase() === 'add') {
+                addFlower();
+            } else if (text.toLowerCase() === 'remove') {
+                removeFlower();
+            } else {
+                // Use sentiment analysis for real input
+                processSentiment(text);
+            }
+            
+            // Clear the input
+            input.value = '';
+            
+            // Re-focus for next input (important for projection mode!)
+            refocusInput();
+        }
+        
+        // ========================================
+        // HELP BUTTON & INFO POPUP
+        // ========================================
+        
+        const helpButton = document.getElementById('help-button');
+        const infoPopup = document.getElementById('info-popup');
+        let isInfoVisible = false;
+        let autoShowComplete = false;
+        
+        /**
+         * Show info popup on page load for 5 seconds
+         */
+        function showInfoOnLoad() {
+            // Show the popup
+            infoPopup.classList.remove('hidden');
+            infoPopup.classList.add('visible', 'auto-show');
+            isInfoVisible = true;
+            
+            // After 5 seconds, hide it
+            setTimeout(() => {
+                infoPopup.classList.remove('visible', 'auto-show');
+                infoPopup.classList.add('hidden');
+                isInfoVisible = false;
+                autoShowComplete = true;
+            }, 5000);
+        }
+        
+        /**
+         * Toggle info popup visibility
+         */
+        function toggleInfo() {
+            if (isInfoVisible) {
+                infoPopup.classList.remove('visible', 'auto-show');
+                infoPopup.classList.add('hidden');
+                isInfoVisible = false;
+            } else {
+                infoPopup.classList.remove('hidden', 'auto-show');
+                infoPopup.classList.add('visible');
+                isInfoVisible = true;
+            }
+        }
+        
+        /**
+         * Hide info popup
+         */
+        function hideInfo() {
+            infoPopup.classList.remove('visible', 'auto-show');
+            infoPopup.classList.add('hidden');
+            isInfoVisible = false;
+        }
+        
+        // Click to toggle
+        helpButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleInfo();
+        });
+        
+        // Click anywhere else to close (but not during auto-show)
+        document.addEventListener('click', (e) => {
+            if (isInfoVisible && autoShowComplete && !infoPopup.contains(e.target) && !helpButton.contains(e.target)) {
+                hideInfo();
+            }
+        });
+        
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
+        
+        const moodInputElement = document.getElementById('mood-input');
+        
+        // Typing event - start rabbit animation on first keystroke
+        moodInputElement.addEventListener('input', (e) => {
+            // Start the timed animation sequence (only starts once)
+            startRabbitTypingAnimation();
+        });
+        
+        // Enter key in input field
+        moodInputElement.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                processInput();
+                
+                // Animate rabbit back to resting state (timed 40ms per frame)
+                animateRabbitToResting();
+            }
+        });
+        
+        // ========================================
+        // IMAGE LOADING
+        // ========================================
+        
+        // Check dialog image loads
+        const dialogImage = document.getElementById('dialog-image');
+        dialogImage.addEventListener('load', () => {
+            console.log('✅ Dialog image loaded successfully!');
+        });
+        dialogImage.addEventListener('error', () => {
+            console.error('❌ Failed to load dialog image (Frame_2.png)');
+            console.error('Make sure Frame_2.png is in the same folder as this HTML file');
+        });
+        
+        // Log when layer images load
+        const layers = document.querySelectorAll('.layer');
+        layers.forEach((layer, index) => {
+            layer.addEventListener('load', () => {
+                console.log(`✅ Layer ${index + 1} loaded:`, layer.alt);
+            });
+            
+            layer.addEventListener('error', () => {
+                console.error(`❌ Failed to load:`, layer.alt);
+            });
+        });
+        
+        console.log('🎨 Mood Garden Ready!');
+        console.log('💡 Type a feeling word and press Enter');
+        console.log('😊 Positive words add flowers, 😔 negative words remove them');
+        
+        // Initialize garden with random flowers
+        initializeGarden();
+        
+        // Start sky animation loop
+        startSkyAnimation();
+        
+        // Show info popup for 5 seconds on load
+        showInfoOnLoad();
+        
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
